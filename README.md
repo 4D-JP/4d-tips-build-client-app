@@ -181,3 +181,93 @@ $status:=$buildApp.build()
 ## 結論
 
 ビルドしたクライアントを起動すると，ビルドしたサーバー（あれば）に接続することが確認できます。この段階では，スタートアッププロジェクトを使用しない，通常のクライアントと変わらない動作ですが，ビルドクライアント起動後の動作を自由にカスタマイズできることがわかります。
+
+## 補足
+
+前述したように，ビルドしたクライアントは，ビルドしたサーバーにしか接続できません。では，ビルドしていないサーバーに接続する汎用的なクライアント（v2004の4D Clientみたいなもの）をビルドすることはできないのかというと，方法がないわけではありません。
+
+スタートアッププロジェクトの項で述べたように，`OPEN DATABASE`コマンドで任意のサーバーに接続することができます。したがって，起動直後にコマンドを実行するようなデスクトップ版アプリをビルドすれば，クライアントのような動作になります。
+
+まず，下記の場所に新規データファイルを作成します。
+
+* /PROJECT/Default Data/Default.4DD
+
+です。
+
+ジャーナルファイルを作成するためにバックアップを実行するよう促されるので，画面の指示に従います。その後，データベース設定を開き，ログファイルの使用を解除します。
+
+<img width="682" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/5fba1914-8694-4415-9e16-b5a331cc420c">
+
+ログファイルの有無は
+
+* ストラクチャ定義（`.4DCatalog`）
+* データファイル（`.4DD`）
+
+のそれぞれに書き込まれています。ログファイルを使用せずに起動できるデータファイルを作成するためには，当該データファイルを開いているときにデータベース設定でログファイルの使用を解除する必要があります。
+
+本来のデータファイルに戻し，デスクトップ版アプリをビルドします。
+
+```4d
+/*
+	$applicationName: クライアントのアプリ名
+	$buildDestFolder: 出力先フォルダーパス
+	$signingIdentity: コード署名に使用するでベロッパー証明書（Macのみ）
+	$volumeDesktopFolder: 4D Volume Desktopの場所
+	$iconFile: カスタムアイコンファイルのパス
+	$versionString: 任意のバージョン識別子
+*/
+
+$applicationName:="私のクライアント"
+$buildDestFolder:=System folder(Desktop)
+$signingIdentity:="Developer ID Application: keisuke miyako (Y69CWUC25B)"
+
+
+If (Is macOS)
+	$volumeDesktopFolder:=Folder(fk applications folder).folder("4D v19 R8").folder("4D Volume Desktop.app").platformPath
+	$iconFile:=Folder(fk resources folder).file("4DClient.icns").platformPath
+Else 
+	$volumeDesktopFolder:=Folder(fk applications folder).folder("4D v19 R8").folder("4D Volume Desktop").platformPath
+	$iconFile:=Folder(fk resources folder).file("4DClient.ico").platformPath
+End if 
+
+$versionString:="1.0.0"
+
+//MARK: ビルド設定
+
+$buildApp:=cs.BuildApp.new(New object)
+
+$buildApp.findLicenses(New collection("4DDP"; "4UUD"; "4DOE"; "4UOE"))
+
+$buildApp.settings.ArrayExcludedComponentName.Item:=New collection("4D SVG"; "4D Progress"; "4D ViewPro"; "4D NetKit"; "4D WritePro Interface"; "4D Mobile App Server"; "4D Widgets")
+$buildApp.settings.ArrayExcludedModuleName.Item:=New collection("CEF"; "MeCab"; "PHP"; "SpellChecker"; "4D Updater")
+$buildApp.settings.ServerDataCollection:=False
+$buildApp.settings.HideRuntimeExplorerMenuItem:=True
+$buildApp.settings.HideDataExplorerMenuItem:=True
+$buildApp.settings.BuildApplicationName:=$applicationName
+$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIncludeIt:=True
+$buildApp.settings.BuildApplicationSerialized:=True
+$buildApp.settings.BuildCompiled:=False
+If (Is macOS)
+	$buildApp.settings.BuildMacDestFolder:=$buildDestFolder
+	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLMacFolder:=$volumeDesktopFolder
+	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIconMacPath:=$iconFile
+Else 
+	$buildApp.settings.BuildWinDestFolder:=$buildDestFolder
+	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLWinFolder:=$volumeDesktopFolder
+	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIconWinPath:=$iconFile
+End if 
+$buildApp.settings.PackProject:=False
+$buildApp.settings.Versioning.RuntimeVL.RuntimeVLVersion:=$versionString
+If (Is macOS)
+	$buildApp.settings.SignApplication.MacSignature:=True
+	$buildApp.settings.SignApplication.MacCertificate:=$signingIdentity
+	$buildApp.settings.SignApplication.AdHocSign:=False
+End if 
+
+$status:=$buildApp.build()
+```
+
+**注記**: デフォルトデータファイルをセットアップすることにより，初回の起動でデータファイルやログファイルの指定や作成を回避することができます。
+
+* [プロジェクトパッケージのビルド > データファイルの管理](https://developer.4d.com/docs/ja/19/Desktop/building/#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E7%AE%A1%E7%90%86)
+* 
