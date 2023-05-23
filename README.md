@@ -84,3 +84,91 @@ OPEN DATABASE($file.platformPath)
 <img width="704" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/01978e92-e593-4adc-80bc-14add2653c14">
 
 ## クライアントをビルドする
+
+ビルド設定には多数のオプションが存在します。処理を簡易にするため，今回は[miyako/4d-class-build-application](https://github.com/miyako/4d-class-build-application)を使用します。
+
+* /SOURCES/Classes/BuildApp.4dm
+* /RESOURCES/BuildApp-Template.4DSettings
+
+をプロジェクトにコピーします。
+
+**参考**: ビルド処理を簡易にする別のツールとして[`Build4D`](https://blog.4d.com/ja/build-your-compiled-structure-or-component-with-build4d/)が公開されています。
+
+* ビルドコード
+
+```4d
+/*
+	
+	$startupProjectPath: スタートアッププロジェクトのパス
+	$applicationName: クライアントのアプリ名
+	$buildDestFolder: 出力先フォルダーパス
+	$signingIdentity: コード署名に使用するでベロッパー証明書（Macのみ）
+	$volumeDesktopFolder: 4D Volume Desktopの場所
+	$iconFile: カスタムアイコンファイルのパス
+	$versionString: 任意のバージョン識別子
+*/
+
+$startupProjectPath:=Folder(Folder(fk database folder).platformPath; fk platform path)\
+.parent.folder("Compiled Database").folder("simple-startup-project")
+
+$applicationName:="私のクライアント"
+$buildDestFolder:=System folder(Desktop)
+$signingIdentity:="Developer ID Application: keisuke miyako (Y69CWUC25B)"
+
+
+If (Is macOS)
+	$volumeDesktopFolder:=Folder(fk applications folder).folder("4D v19 R8").folder("4D Volume Desktop.app").platformPath
+	$iconFile:=Folder(fk resources folder).file("4DClient.icns").platformPath
+Else 
+	$volumeDesktopFolder:=Folder(fk applications folder).folder("4D v19 R8").folder("4D Volume Desktop").platformPath
+	$iconFile:=Folder(fk resources folder).file("4DClient.ico").platformPath
+End if 
+
+$versionString:="1.0.0"
+
+//MARK: ビルド設定
+
+$buildApp:=cs.BuildApp.new(New object)
+
+$buildApp.findLicenses(New collection("4DDP"; "4DOE"))
+
+$buildApp.settings.ArrayExcludedComponentName.Item:=New collection("4D SVG"; "4D Progress"; "4D ViewPro"; "4D NetKit"; "4D WritePro Interface"; "4D Mobile App Server"; "4D Widgets")
+$buildApp.settings.ArrayExcludedModuleName.Item:=New collection("CEF"; "MeCab"; "PHP"; "SpellChecker"; "4D Updater")
+$buildApp.settings.ServerDataCollection:=False
+$buildApp.settings.HideRuntimeExplorerMenuItem:=True
+$buildApp.settings.HideDataExplorerMenuItem:=True
+$buildApp.settings.BuildApplicationName:=$applicationName
+If (Is macOS)
+	$buildApp.settings.BuildMacDestFolder:=$buildDestFolder
+	$buildApp.settings.SourcesFiles.CS.ClientMacIncludeIt:=True
+	$buildApp.settings.SourcesFiles.CS.ClientMacFolderToMac:=$volumeDesktopFolder
+	$buildApp.settings.SourcesFiles.CS.ClientMacIconForMacPath:=$iconFile
+	$buildApp.settings.SourcesFiles.CS.DatabaseToEmbedInClientMacFolder:=$startupProjectPath
+Else 
+	$buildApp.settings.BuildWinDestFolder:=$buildDestFolder
+	$buildApp.settings.SourcesFiles.CS.ClientWinIncludeIt:=True
+	$buildApp.settings.SourcesFiles.CS.ClientWinFolderToWin:=$volumeDesktopFolder
+	$buildApp.settings.SourcesFiles.CS.ClientWinIconForWinPath:=$iconFile
+	$buildApp.settings.SourcesFiles.CS.DatabaseToEmbedInClientWinFolder:=$startupProjectPath
+End if 
+$buildApp.settings.SourcesFiles.CS.ServerIncludeIt:=False
+$buildApp.settings.SourcesFiles.CS.IsOEM:=False
+$buildApp.settings.CS.BuildServerApplication:=False
+$buildApp.settings.CS.LastDataPathLookup:="ByAppName"
+$buildApp.settings.PackProject:=False
+$buildApp.settings.Versioning.Client.ClientVersion:=$versionString
+$buildApp.settings.Versioning.Common.CommonVersion:=$versionString
+$buildApp.settings.Versioning.RuntimeVL.RuntimeVLVersion:=$versionString
+$buildApp.settings.Versioning.Server.ServerVersion:=$versionString
+If (Is macOS)
+	$buildApp.settings.SignApplication.MacSignature:=True
+	$buildApp.settings.SignApplication.MacCertificate:=$signingIdentity
+	$buildApp.settings.SignApplication.AdHocSign:=False
+End if 
+
+$status:=$buildApp.build()
+```
+
+* Mac版
+
+<img width="123" alt=" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/239626ab-2dff-4760-b2dc-9ca16284dccb">
