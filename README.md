@@ -3,6 +3,13 @@
 # 4d-tips-build-client-app
 汎用クライアントアプリをビルドするには
 
+## 各プロジェクトの説明
+
+* simple-server: 何もしないサーバー（ポート番号: `20000`）
+* simple-startup-project: 起動後サーバーに接続するプロジェクト（組込用）
+* simple-client: 何もしないクライアントアプリ（上記プロジェクト組込）
+* simple-startup-project-2: 起動後サーバーに接続するデスクトップアプリ（単独用）
+
 ## 概要
 
 4D v11 SQL以降，各種ランタイムが整理され，公式ビルドは4Dと4D Serverだけになりました。
