@@ -3,7 +3,7 @@
 # 4d-tips-build-client-app
 汎用クライアントアプリをビルドするには
 
-## Synopsis
+## 概要
 
 4D v11 SQL以降，各種ランタイムが整理され，公式ビルドは4Dと4D Serverだけになりました。
 
