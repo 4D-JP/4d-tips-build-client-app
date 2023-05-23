@@ -200,8 +200,6 @@ $status:=$buildApp.build()
 
 * /PROJECT/Default Data/Default.4DD
 
-です。
-
 ジャーナルファイルを作成するためにバックアップを実行するよう促されるので，画面の指示に従います。その後，データベース設定を開き，ログファイルの使用を解除します。
 
 <img width="682" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/5fba1914-8694-4415-9e16-b5a331cc420c">
