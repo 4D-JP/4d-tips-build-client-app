@@ -50,19 +50,19 @@
 新規プロジェクトを作成し，目的のサーバーに接続するメソッドを *On Startup* に記述します。
 
 ```4d
-	$config:=New object
-	$config.name:="私のサーバー"
-	$config.addr:="127.0.0.1"
-	$config.port:=20000
+$config:=New object
+$config.name:="私のサーバー"
+$config.addr:="127.0.0.1"
+$config.port:=20000
 	
-	$file:=Folder(fk resources folder).file("link.4dtag")
-	$link:=$file.getText()
-	PROCESS 4D TAGS($link; $link; $config)
+$file:=Folder(fk resources folder).file("link.4dtag")
+$link:=$file.getText()
+PROCESS 4D TAGS($link; $link; $config)
+
+$file:=Folder(Temporary folder; fk platform path).file("connect.4dlink")
+$file.setText($link)
 	
-	$file:=Folder(Temporary folder; fk platform path).file("connect.4dlink")
-	$file.setText($link)
-	
-	OPEN DATABASE($file.platformPath)
+OPEN DATABASE($file.platformPath)
 ```
 
 * link.4dtag
