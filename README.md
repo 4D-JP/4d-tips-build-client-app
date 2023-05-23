@@ -174,7 +174,7 @@ End if
 $status:=$buildApp.build()
 ```
 
-<img width="123" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/239626ab-2dff-4760-b2dc-9ca16284dccb">
+<img width="123" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/e60f4d8e-60be-4977-9383-361eb1039245">
 
 **注記** Mac版のクライアントアプリをインターネット経由で配付する場合，さらに公証が必要です。
 
