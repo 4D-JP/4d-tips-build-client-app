@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="2">
+	<com.4d>
+		<server>
+			<network>
+				<options publication_name="私のサーバー" publication_port="20000"/>
+			</network>
+		</server>
+	</com.4d>
+</preferences>
