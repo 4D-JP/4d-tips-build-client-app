@@ -171,4 +171,9 @@ $status:=$buildApp.build()
 
 <img width="123" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/239626ab-2dff-4760-b2dc-9ca16284dccb">
 
-**注記** Mac版のクライアントアプリをインターネット経由で配付する場合，さらに公証が必要です（この記事では扱いません）。
+**注記** Mac版のクライアントアプリをインターネット経由で配付する場合，さらに公証が必要です。
+
+```sh
+hdiutil create -format UDBZ -plist -srcfolder {アプリ名.app} {アプリ名.dmg}
+xcrun notarytool submit --apple-id {Apple開発者ID} --team-id {Apple開発者チームID} --password {App用パスワード} {アプリ名.dmg}
+```
