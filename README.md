@@ -45,5 +45,34 @@
 
 <img width="349" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/923df586-f069-48e6-961b-1519409e712e">
 
+## スタートアッププロジェクトを作成する
 
+新規プロジェクトを作成し，目的のサーバーに接続するメソッドを *On Startup* に記述します。
 
+```4d
+	$config:=New object
+	$config.name:="私のサーバー"
+	$config.addr:="::1"
+	$config.port:=20000
+	
+	$file:=Folder(fk resources folder).file("link.4dtag")
+	$link:=$file.getText()
+	PROCESS 4D TAGS($link; $link; $config)
+	
+	$file:=Folder(Temporary folder; fk platform path).file("connect.4dlink")
+	$file.setText($link)
+	
+	OPEN DATABASE($file.platformPath)
+```
+
+* link.4dtag
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<database_shortcut
+  is_remote="true"
+  server_database_name="$4dtext($1.name)"
+  server_path="$4dtext($1.addr):$4dtext($1.port)" />
+```
+
+メソッドを実行して，目的のサーバーに接続できることを確認します。
