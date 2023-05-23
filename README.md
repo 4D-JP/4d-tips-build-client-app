@@ -52,7 +52,7 @@
 ```4d
 	$config:=New object
 	$config.name:="私のサーバー"
-	$config.addr:="::1"
+	$config.addr:="127.0.0.1"
 	$config.port:=20000
 	
 	$file:=Folder(fk resources folder).file("link.4dtag")
