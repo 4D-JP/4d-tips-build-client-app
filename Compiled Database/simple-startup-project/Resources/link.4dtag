@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database_shortcut
+  is_remote="true"
+  server_database_name="$4dtext($1.name)"
+  server_path="$4dtext($1.addr):$4dtext($1.port)" />

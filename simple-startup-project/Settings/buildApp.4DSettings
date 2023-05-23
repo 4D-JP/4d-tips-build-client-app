@@ -38,10 +38,22 @@
       <ItemsCount>0</ItemsCount>
     </ArrayExcludedPluginID>
     <ArrayExcludedComponentName>
-      <ItemsCount>0</ItemsCount>
+      <ItemsCount>7</ItemsCount>
+      <Item1>4D SVG</Item1>
+      <Item2>4D Progress</Item2>
+      <Item3>4D ViewPro</Item3>
+      <Item4>4D NetKit</Item4>
+      <Item5>4D WritePro Interface</Item5>
+      <Item6>4D Mobile App Server</Item6>
+      <Item7>4D Widgets</Item7>
     </ArrayExcludedComponentName>
     <ArrayExcludedModuleName>
-      <ItemsCount>0</ItemsCount>
+      <ItemsCount>5</ItemsCount>
+      <Item1>CEF</Item1>
+      <Item2>MeCab</Item2>
+      <Item3>PHP</Item3>
+      <Item4>SpellChecker</Item4>
+      <Item5>4D Updater</Item5>
     </ArrayExcludedModuleName>
     <Licenses>
       <ArrayLicenseMac>
@@ -55,5 +67,6 @@
       <AdHocSign>True</AdHocSign>
     </SignApplication>
   </BuildApp>
+
 
 </Preferences4D>
