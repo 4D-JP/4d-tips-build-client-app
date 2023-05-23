@@ -109,7 +109,7 @@ OPEN DATABASE($file.platformPath)
 */
 
 $startupProjectPath:=Folder(Folder(fk database folder).platformPath; fk platform path)\
-.parent.folder("Compiled Database").folder("simple-startup-project")
+.parent.folder("Compiled Database").folder("simple-startup-project").platformPath
 
 $applicationName:="私のクライアント"
 $buildDestFolder:=System folder(Desktop)
@@ -169,6 +169,6 @@ End if
 $status:=$buildApp.build()
 ```
 
-* Mac版
-
 <img width="123" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/239626ab-2dff-4760-b2dc-9ca16284dccb">
+
+**注記** Mac版のクライアントアプリをインターネット経由で配付する場合，さらにコード署名と公証が必要です（この記事では扱いません）。
