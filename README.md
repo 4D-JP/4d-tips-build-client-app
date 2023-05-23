@@ -16,3 +16,7 @@
 ビルドはデザインモードの「アプリケーションビルド」メニュー，またはコマンドの[`BUILD APPLICATION`](https://doc.4d.com/4Dv19/4D/19.6/BUILD-APPLICATION.301-6270031.ja.html)で実現できます。当該プラットフォームの開発ライセンス（4D Developer Professionalまたは4D Team Developer Professional）があれば，クライアント/サーバー版のアプリケーションをビルドすることができます。
 
 敢えてアプリケーションをビルドをせず，エンドユーザーに4D.comのダウンロードページから「4D」を入手してもらって，クライアントの代わりに使用することもできますが，そうする理由はほとんどありません。
+
+しかしながら，v18で追加された新しいビルドキーとv15で追加された[OPEN DATABASE](https://doc.4d.com/4Dv19/4D/19.6/OPEN-DATABASE.301-6270040.ja.html)コマンドを活用すれば，ビルドしていないサーバーに接続する専用クライアントを作成することができます。
+
+**参考**: [カスタムリモートコネクションダイアログの構築](https://blog.4d.com/ja/build-a-custom-remote-connection-dialog/)
