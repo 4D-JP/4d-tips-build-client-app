@@ -1,3 +1,5 @@
+![version](https://img.shields.io/badge/version-19%2B-5682DF)
+
 # 4d-tips-build-client-app
 汎用クライアントアプリをビルドするには
 
