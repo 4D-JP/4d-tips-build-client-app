@@ -9,6 +9,7 @@
 * simple-startup-project: 起動後サーバーに接続するプロジェクト（組込用）
 * simple-client: 何もしないクライアントアプリ（上記プロジェクト組込）
 * simple-startup-project-2: 起動後サーバーに接続するデスクトップアプリ（単独用）
+* Releases/1.0.0: Mac版のビルドクライアント
 
 ## 概要
 
