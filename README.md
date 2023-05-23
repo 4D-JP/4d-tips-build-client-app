@@ -177,3 +177,4 @@ $status:=$buildApp.build()
 hdiutil create -format UDBZ -plist -srcfolder {アプリ名.app} {アプリ名.dmg}
 xcrun notarytool submit --apple-id {Apple開発者ID} --team-id {Apple開発者チームID} --password {App用パスワード} {アプリ名.dmg}
 ```
+<img width="660" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/cd53c815-11cb-4bcf-b3e3-b12e5346245c">
