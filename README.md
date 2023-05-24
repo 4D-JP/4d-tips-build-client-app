@@ -103,8 +103,6 @@ OPEN DATABASE($file.platformPath)
 
 **参考**: ビルド処理を簡易にする別のツールとして[`Build4D`](https://blog.4d.com/ja/build-your-compiled-structure-or-component-with-build4d/)が公開されています。
 
-* ビルドコード
-
 ```4d
 /*
 	
