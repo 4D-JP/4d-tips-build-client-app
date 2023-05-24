@@ -33,7 +33,7 @@ v18で追加された新しいビルドキーとv15で追加された[OPEN DATAB
 
 **注記** ビルドしていないサーバーに接続するクライアントをビルドすることはできません。ビルドしていない4D Serverに接続しようとした場合，エラーが返されます。
 
-<img width="660" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/3bbaea6d-99f0-477d-a5c3-b86d6910c6f5">
+<img width="640" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/1725068/229e1b25-abc2-43e0-9294-d3af2d09cbc0">
 
 ## スタートアッププロジェクト
 
