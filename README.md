@@ -92,8 +92,6 @@ OPEN DATABASE($file.platformPath)
 
 目的のサーバーに接続できることが確認できたら，アプリケーションビルド画面を開き，**コンパイルされたストラクチャ**をビルドします。
 
-<img width="704" alt="" src="https://github.com/4D-JP/4d-tips-build-client-app/assets/10509075/01978e92-e593-4adc-80bc-14add2653c14">
-
 ## クライアントをビルドする
 
 ビルド設定には多数のオプションが存在します。処理を簡易にするため，今回は[miyako/4d-class-build-application](https://github.com/miyako/4d-class-build-application)を使用します。
